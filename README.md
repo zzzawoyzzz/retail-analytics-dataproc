@@ -44,8 +44,8 @@ An interactive dashboard built on top of the BigQuery data, visualizing key metr
 ## ✅ Prerequisites
 
 1.  **Google Cloud Platform Account** with billing enabled.
-2.  **Google Cloud SDK** (`gcloud`) installed and authenticated.
-3.  **Terraform** installed.
+2.  **Google Cloud SDK** (`gcloud`) installed and authenticated. [Download here](https://cloud.google.com/sdk/docs/install)
+3.  **Terraform** installed. [Download here](https://developer.hashicorp.com/terraform/install)
 4.  **Python 3.9+** (for local development).
 
 ---
@@ -130,6 +130,10 @@ terraform init
 **5.3 apply terraform**
 ```bash
 terraform apply -auto-approve
+```
+or specify your own variables
+```bash
+terraform apply -var-file="example.tfvars" -auto-approve
 ```
 
 ### 6. Verify Results
