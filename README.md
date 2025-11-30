@@ -71,8 +71,8 @@ The pipeline follows the **Medallion Architecture** pattern and integrates with 
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd <your-project-folder>
+git clone https://github.com/zzzawoyzzz/retail-analytics-dataproc.git
+cd retail-analytics-dataproc
 ```
 
 ### 2. Prepare Data
