@@ -29,6 +29,16 @@ This project was built to master **Cloud Data Engineering** concepts using **Goo
 
 The pipeline follows the **Medallion Architecture** pattern and integrates with **Looker Studio** for visualization.
 
+## 📊 Result Outcome
+
+### BigQuery Analysis
+![BigQuery Analysis](images/output_bigquery_analysis.jpg)
+The final Gold layer(agg mart) data in BigQuery, showing the calculated top 10 revenue of products.
+
+### Looker Studio Dashboard
+![Looker Dashboard](images/output_dashboard.jpg)
+An interactive dashboard built on top of the BigQuery data, visualizing key metrics like revenue trends, product performance, and customer segmentation.
+
 ---
 
 ## ✅ Prerequisites
@@ -76,55 +86,75 @@ git clone https://github.com/zzzawoyzzz/retail-analytics-dataproc.git
 cd retail-analytics-dataproc
 ```
 
-### 2. Prepare Data
+### 2. Authenticate with Google Cloud
+```bash
+# Login to your Google Cloud account
+gcloud auth login
+
+# Set application default credentials (required for Terraform)
+gcloud auth application-default login
+
+# Set your project ID
+gcloud config set project <YOUR_PROJECT_ID>
+```
+
+### 3. Prepare Data
 Ensure your raw data file `online_retail_II.csv` is placed in the `data/` directory.
 
-### 3. Setup configuration file
+### 4. Setup configuration file
 <img src="images/terraform_variables.png" alt="Terraform Variables">
-Set up the configuration file [`terraform_infra/example.tfvars`](terraform_infra/example.tfvars) with your project ID, region, and zone.
+Set up the configuration file (`terraform_infra/example.tfvars`) with your project ID, region, and zone.
 
-### 4. Deploy Infrastructure & Run Job
+Also, update the PySpark configuration file (`configs/config.yaml`) with your `project_id`:
+```yaml
+project_id: "your-project-id"
+```
+<img src="images/config_projectId.jpg" alt="Config Project ID">
+
+
+### 5. Deploy Infrastructure & Run Job
 Navigate to the Terraform directory and apply the configuration. This will create GCS buckets, enable APIs, upload scripts/data, and **submit the Dataproc Batch job**.
 
-**4.1 change directory to terraform_infra folder**
+**5.1 change directory to terraform_infra folder**
 ```bash
 cd terraform_infra
 ```
-**4.2 initialize terraform**
+**5.2 initialize terraform**
 ```bash
 terraform init
 ```
 
-**4.3 apply terraform**
+**5.3 apply terraform**
 ```bash
 terraform apply -auto-approve
 ```
 
-### 5. Verify Results
+### 6. Verify Results
 Once the Terraform apply completes (and the Dataproc job finishes), check **BigQuery**:
 -   **Dataset**: `analytics_datawarehouse` (Silver Tables)
 -   **Dataset**: `analytics_datamart` (Gold Tables)
 
-### 6. clean up
+### 7. Clean Up
 Navigate to the Terraform directory and apply the configuration. This will create GCS buckets, enable APIs, upload scripts/data, and **submit the Dataproc Batch job**.
 
-**6.1 change directory to terraform_infra**
+**7.1 change directory to terraform_infra**
 ```bash
 cd terraform_infra
 ```
-**6.2 apply terraform**
+**7.2 apply terraform**
 ```bash
 terraform destroy -auto-approve
 ```
 
-### 7. (optional) rerun the job
+### 8. (Optional) Rerun the Job
 Navigate to the Terraform directory and apply the configuration. This will create GCS buckets, enable APIs, upload scripts/data, and **submit the Dataproc Batch job**.
-** 7.1 change directory to terraform_infra
+
+**8.1 Change directory to terraform_infra**
 ```bash
 cd terraform_infra
-
 ```
-** 7.2 generate random id for create new dataproc batch and apply terraform
+
+**8.2 Generate random id for create new dataproc batch and apply terraform**
 ```bash
 terraform taint random_id.dataproc_batch && terraform apply -auto-approve
 ```
@@ -138,7 +168,7 @@ terraform taint random_id.dataproc_batch && terraform apply -auto-approve
     -   Reads CSV data.
     -   Adds metadata (ingestion time, source system).
     -   Writes to **Delta Lake** (GCS) partitioned by date.
-    -   **Syncs to BigQuery** (Native Table).
+    -   **Syncs to BigQuery** (Native Table). (remark: purpose for dev environment only) 
 3.  **Silver Layer (Cleaned & Normalized)**:
     -   Performs data cleansing (removes cancellations, handles nulls).
     -   Implements **Star Schema**:
