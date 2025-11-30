@@ -26,8 +26,8 @@ metastore_db/
 derby.log
 
 # Data files (keep structure, ignore actual data)
-data/*
-!data/.gitkeep
+# data/*
+# !data/.gitkeep
 
 # Logs
 *.log
