@@ -1,0 +1,101 @@
+project_id: "gcp-data-engineer-awoy"
+region: "asia-southeast1"
+zone: "asia-southeast1-a"
+
+buckets:
+  raw: "01-raw_data_dataproc"
+  processed: "02-warehouse_data_dataproc"
+  jobs: "03-dataproc_jobs"
+  temp: "04-dataproc-staging-for-bigquery"
+
+datasets:
+  bronze: "staging_bronze"
+  datawarehouse: "analytics_datawarehouse"
+
+  datamart: "analytics_datamart"
+
+tables:
+  bronze: "bronze"
+  fact_transaction: "fact_transaction"
+  dim_customer: "dim_customer"
+  dim_country: "dim_country"
+  dim_date: "dim_date"
+  dim_product: "dim_product"
+  revenue_monthly: "revenue_monthly"
+  product_revenue_performance: "product_revenue_performance"
+  revenue_country: "revenue_country"
+  rfm_analysis: "rfm_analysis"
+
+paths:
+  input_file: "online_retail_II.csv"
+  layers:
+    bronze: "bronze"
+    silver: "silver"
+    gold: "gold"
+  silver_tables:
+    dim_customer: "silver/dim_customer"
+    dim_country: "silver/dim_country"
+    dim_date: "silver/dim_date"
+    dim_product: "silver/dim_product"
+    fact_transaction: "silver/fact_transaction"
+  gold_tables:
+    revenue_monthly: "gold/revenue_monthly"
+    product_revenue_performance: "gold/product_revenue_performance"
+    revenue_country: "gold/revenue_country"
+    rfm_analysis: "gold/rfm_analysis"
+
+table_labels:
+  bronze:
+    layer: "bronze"
+    table_type: "raw"
+    source: "csv"
+    
+  
+  dim_customer:
+    layer: "silver"
+    table_type: "dimension"
+    entity: "customer"
+    
+  dim_country:
+    layer: "silver"
+    table_type: "dimension"
+    entity: "country"
+    
+  dim_date:
+    layer: "silver"
+    table_type: "dimension"
+    entity: "date"
+    
+  dim_product:
+    layer: "silver"
+    table_type: "dimension"
+    entity: "product"
+    
+  fact_transaction:
+    layer: "silver"
+    table_type: "fact"
+    entity: "transaction"
+    
+  
+  revenue_monthly:
+    layer: "gold"
+    table_type: "aggregate"
+    metric: "revenue"
+    grain: "monthly"
+    
+  product_revenue_performance:
+    layer: "gold"
+    table_type: "aggregate"
+    metric: "revenue"
+    grain: "product"
+    
+  revenue_country:
+    layer: "gold"
+    table_type: "aggregate"
+    metric: "revenue"
+    grain: "country"
+    
+  rfm_analysis:
+    layer: "gold"
+    table_type: "analytics"
+    analysis_type: "rfm"
