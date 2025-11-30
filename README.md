@@ -64,16 +64,19 @@ An interactive dashboard built on top of the BigQuery data, visualizing key metr
 
 ```bash
 .
-├── configs/                 # Configuration files (YAML)
-├── data/                    # Raw data files (CSV)
-├── jobs/                    # PySpark job scripts
-│   ├── main_spark.py       # Main ETL logic (Bronze -> Silver -> Gold)
-│   └── utils.py            # Utility functions (SCD Type 2, BigQuery upload)
-├── terraform_infra/         # Terraform infrastructure code
-│   ├── main.tf             # Main Terraform configuration
-│   ├── variables.tf        # Variable definitions
-│   └── outputs.tf          # Output definitions
-└── README.md                # Project documentation
+├── configs/
+│   └── config.yaml              # Configuration files (YAML)
+├── data/
+│   └── online_retail_II.csv     # Raw data files (CSV)
+├── pyspark_jobs/
+│   ├── main_spark.py            # Main ETL logic (Bronze -> Silver -> Gold)
+│   └── utils.py                 # Utility functions (SCD Type 2, BigQuery upload)
+├── terraform_infra/             # Terraform infrastructure code
+│   ├── main.tf                  # Main Terraform configuration
+│   ├── variables.tf             # Variable definitions
+│   ├── outputs.tf               # Output definitions
+│   └── example.tfvars           # Example Terraform variables
+└── README.md                    # Project documentation
 ```
 
 ---
