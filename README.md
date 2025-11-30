@@ -27,7 +27,8 @@ This project was built to master **Cloud Data Engineering** concepts using **Goo
 
 ![Architecture Diagram](images/architecture_v3.png)
 
-The pipeline follows the **Medallion Architecture** pattern and integrates with **Looker Studio** for visualization:
+The pipeline follows the **Medallion Architecture** pattern and integrates with **Looker Studio** for visualization.
+
 ---
 
 ## ✅ Prerequisites
