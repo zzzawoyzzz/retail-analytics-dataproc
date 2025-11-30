@@ -103,9 +103,9 @@ Ensure your raw data file `online_retail_II.csv` is placed in the `data/` direct
 
 ### 4. Setup configuration file
 <img src="images/terraform_variables.png" alt="Terraform Variables">
-Set up the configuration file (`terraform_infra/example.tfvars`) with your project ID, region, and zone.
+Set up the configuration file `terraform_infra/example.tfvars` with your project ID, region, and zone.
 
-Also, update the PySpark configuration file (`configs/config.yaml`) with your `project_id`:
+Also, update the PySpark configuration file `configs/config.yaml` with your `project_id`:
 ```yaml
 project_id: "your-project-id"
 ```
